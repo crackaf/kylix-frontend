@@ -5,6 +5,7 @@ import Home from 'pages/home';
 import Signup from 'pages/signup';
 import Login from 'pages/login';
 import Auth from 'pages/auth';
+import Doctors from 'pages/doctors';
 
 /**
  *
@@ -22,6 +23,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/auth" element={<Auth />} />
+          <Route path="/doctors" element={<Doctors />} />
         </Routes>
       </BrowserRouter>
     </div>
