@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { StyledEngineProvider } from '@mui/material/styles';
 import Colors from 'theme/colors';
 import Navbar from 'components/navbar';
+import useUser from 'hooks/useUser';
 import AppointmentList from './components/AppointmentList';
 
 const PageContainer = styled.div`
@@ -55,51 +56,84 @@ const Input = styled.input`
  * @return {JSX.Element}
  */
 function Profile() {
-  const type = 1;
+  const { user, isLoggedIn, isVerified } = useUser();
+
   return (
     <PageContainer>
-      <Navbar isLoggedIn />
-      <ProfileContainer>
-        <div className="mb-3 mt-2">
-          <Label className="form-label">Full Name</Label>
-          <Input type="text" className="form-control" disabled value="Arbab" />
-        </div>
-
-        <div className="mb-3 mt-2">
-          <Label className="form-label">User Type</Label>
-          <Input type="text" className="form-control" disabled value="Arbab" />
-        </div>
-
-        <div className="mb-3 mt-2">
-          <Label className="form-label">Phone</Label>
-          <Input type="text" className="form-control" disabled value="Arbab" />
-        </div>
-
-        <div className="mb-3 mt-2">
-          <Label className="form-label">Address</Label>
-          <Input type="text" className="form-control" disabled value="Arbab" />
-        </div>
-
-        <div className="mb-3 mt-2">
-          <Label className="form-label">Gender</Label>
-          <Input type="text" className="form-control" disabled value="Arbab" />
-        </div>
-
-        <div className="mb-3 mt-2">
-          <Label className="form-label">Date of Birth</Label>
-          <Input type="text" className="form-control" disabled value="Arbab" />
-        </div>
-        {type == 1 && (
-          <>
+      <Navbar />
+      {isLoggedIn ? (
+        <>
+          <ProfileContainer>
             <div className="mb-3 mt-2">
-              <Label className="form-label">Total Appointments</Label>
+              <Label className="form-label">Full Name</Label>
               <Input
                 type="text"
                 className="form-control"
                 disabled
-                value="Arbab"
+                value={user?.full_name}
               />
             </div>
+
+            <div className="mb-3 mt-2">
+              <Label className="form-label">User Type</Label>
+              <Input
+                type="text"
+                className="form-control"
+                disabled
+                value={user?.user_type === 1 ? 'Paitient' : 'Doctor'}
+              />
+            </div>
+
+            <div className="mb-3 mt-2">
+              <Label className="form-label">Phone</Label>
+              <Input
+                type="text"
+                className="form-control"
+                disabled
+                value={user?.phone}
+              />
+            </div>
+
+            <div className="mb-3 mt-2">
+              <Label className="form-label">Verified</Label>
+              <Input
+                type="text"
+                className="form-control"
+                disabled
+                value={isVerified ? 'Verified' : 'Not Verified'}
+              />
+            </div>
+
+            <div className="mb-3 mt-2">
+              <Label className="form-label">Address</Label>
+              <Input
+                type="text"
+                className="form-control"
+                disabled
+                value={user?.address}
+              />
+            </div>
+
+            <div className="mb-3 mt-2">
+              <Label className="form-label">Gender</Label>
+              <Input
+                type="text"
+                className="form-control"
+                disabled
+                value={user?.gender}
+              />
+            </div>
+
+            <div className="mb-3 mt-2">
+              <Label className="form-label">Date of Birth</Label>
+              <Input
+                type="text"
+                className="form-control"
+                disabled
+                value={user?.dob}
+              />
+            </div>
+
             <div className="mb-3 mt-2">
               <Label className="form-label">Appointments</Label>
               <StyledEngineProvider injectFirst>
@@ -108,9 +142,11 @@ function Profile() {
                 </ListContainer>
               </StyledEngineProvider>
             </div>
-          </>
-        )}
-      </ProfileContainer>
+          </ProfileContainer>
+        </>
+      ) : (
+        <>Please Login First</>
+      )}
     </PageContainer>
   );
 }

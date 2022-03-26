@@ -6,6 +6,7 @@ import Colors from 'theme/colors';
 import RecentDoctorsTable from './components/DoctorsTable';
 import Navbar from 'components/navbar';
 import { IUser } from 'utils/types/db';
+import useUser from 'hooks/useUser';
 
 const PageContainer = styled.div`
   background-color: ${Colors.background};
@@ -30,6 +31,8 @@ const Input = styled.input`
  * @return {JSX.Element}
  */
 function Doctors() {
+  const { user, isLoggedIn, isVerified } = useUser();
+
   const users: IUser[] = [
     {
       user_id: 1,
@@ -68,6 +71,7 @@ function Doctors() {
       ver_status: 'verified',
     },
   ];
+
   return (
     <>
       <Helmet>
@@ -75,23 +79,31 @@ function Doctors() {
       </Helmet>
       <PageContainer>
         <Navbar />
-        <div className="d-flex w-50 mx-auto mt-5 mb-5">
-          <Input
-            type="text"
-            className="form-control me-4"
-            placeholder="Speciality"
-          />
-          <Input
-            type="text"
-            className="form-control me-4"
-            placeholder="Rating"
-          />
-          <SubmitButton className="btn btn-outline-light">Submit</SubmitButton>
-        </div>
+        {!isLoggedIn && <>Please login first</>}
+        {!isVerified && <>Please verify your account first</>}
+        {isLoggedIn && isVerified && (
+          <>
+            <div className="d-flex w-50 mx-auto mt-5 mb-5">
+              <Input
+                type="text"
+                className="form-control me-4"
+                placeholder="Speciality"
+              />
+              <Input
+                type="text"
+                className="form-control me-4"
+                placeholder="Rating"
+              />
+              <SubmitButton className="btn btn-outline-light">
+                Submit
+              </SubmitButton>
+            </div>
 
-        <Card>
-          <RecentDoctorsTable users={users} />
-        </Card>
+            <Card>
+              <RecentDoctorsTable users={users} />
+            </Card>
+          </>
+        )}
       </PageContainer>
     </>
   );

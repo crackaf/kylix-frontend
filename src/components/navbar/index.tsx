@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Logo from 'assets/images/logo.png';
 import { Link } from 'react-router-dom';
+import useUser from 'hooks/useUser';
 
 const Button = styled.button`
   margin-left: 10px;
@@ -31,7 +32,18 @@ const ImageDiv = styled.div`
  * @dev Navbar component
  * @return {JSX.Element}
  */
-function Navbar({ isLoggedIn }: { isLoggedIn?: boolean }) {
+function Navbar() {
+  const { user, unloadUser } = useUser();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    if (user && user.auth_code) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, [user]);
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
@@ -73,12 +85,41 @@ function Navbar({ isLoggedIn }: { isLoggedIn?: boolean }) {
                 Search
               </Button>
             </Link>
-            {!isLoggedIn && (
-              <Link to={'/login'}>
-                <Button type="button" className="btn btn-outline-light">
-                  Log in
-                </Button>
-              </Link>
+            {!isLoggedIn ? (
+              <>
+                <Link to={'/login'}>
+                  <Button type="button" className="btn btn-outline-light">
+                    Log in
+                  </Button>
+                </Link>
+                <Link to={'/signup'}>
+                  <Button type="button" className="btn btn-outline-light">
+                    SignUp
+                  </Button>
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link to={'/'}>
+                  <Button
+                    onClick={async () => {
+                      unloadUser();
+                      setIsLoggedIn(false);
+                      // eslint-disable-next-line no-restricted-globals
+                      location.reload();
+                    }}
+                    type="button"
+                    className="btn btn-outline-light"
+                  >
+                    Logout
+                  </Button>
+                </Link>
+                <Link to={'/profile'}>
+                  <Button type="button" className="btn btn-outline-light">
+                    {user && (user.full_name || 'Profile')}
+                  </Button>
+                </Link>
+              </>
             )}
           </ButtonDiv>
         </div>
