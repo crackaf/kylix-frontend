@@ -4,14 +4,20 @@ import Colors from 'theme/colors';
 export const SignupContainer = styled.div`
   background-color: ${Colors.background};
   height: 100vh;
+  min-height: 100vh;
   width: 100%;
+  min-width: 400px;
+  @media screen and (max-width: 760px) {
+    height: 100%;
+  }
 `;
 
 export const FormContainer = styled.div`
   height: fit-content;
   width: 40%;
+  min-width: 400px;
   margin: 0 auto;
-  margin-top: 6%;
+  margin-top: 1%;
   background-color: ${Colors.formBackground};
   border: 1px solid ${Colors.border};
   padding: 20px;

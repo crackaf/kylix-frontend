@@ -1,5 +1,7 @@
 import React from 'react';
 import DatePicker from '@mui/lab/DatePicker';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import Navbar from 'components/navbar';
 import {
   SignupContainer,
@@ -98,20 +100,38 @@ function Signup() {
           </div>
 
           {/* Date of Birth Input */}
-          <div className="mb-3 mt-2">
+          <div className="mb-3 mt-2 d-flex flex-column">
             <Label className="form-label">Date of Birth</Label>
+            <div
+              style={{
+                margin: '0 auto',
+              }}
+            >
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DatePicker
+                  disableFuture
+                  label="Responsive"
+                  openTo="year"
+                  views={['year', 'month', 'day']}
+                  value={value}
+                  onChange={(newValue) => {
+                    setValue(newValue);
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      sx={{
+                        svg: { color: '#cccccc' },
+                        input: { color: '#cccccc' },
+                        label: { color: '#cccccc' },
+                      }}
+                      {...params}
+                    />
+                  )}
+                />
+              </LocalizationProvider>
+            </div>
           </div>
-          <DatePicker
-            disableFuture
-            label="Responsive"
-            openTo="year"
-            views={['year', 'month', 'day']}
-            value={value}
-            onChange={(newValue) => {
-              setValue(newValue);
-            }}
-            renderInput={(params) => <TextField {...params} />}
-          />
+
           <SubmitButton className="btn btn-outline-light">
             Register
           </SubmitButton>
