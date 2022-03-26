@@ -9,7 +9,12 @@ export type ICreateProps = {
 };
 
 export const verify = async (data: ICreateProps) => {
-  const response = await axios.post(VERIFY_OTP, qs.stringify(data));
+  const encoded =
+    qs.stringify({ auth_code: data.auth_code }) +
+    '&' +
+    qs.stringify({ otp_code: data.otp_code });
+  console.log(data, encoded);
+  const response = await axios.post(VERIFY_OTP, encoded);
   const { status, response: r } = response.data as IResponse;
-  return { status, r };
+  return response.data;
 };

@@ -8,5 +8,5 @@ export type ICreateProps = {
 
 export const create = async (data: ICreateProps) => {
   const response = await axios.post(CREATE_OTP, qs.stringify(data));
-  return response.data;
+  return response;
 };

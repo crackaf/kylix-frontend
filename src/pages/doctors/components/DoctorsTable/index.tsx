@@ -131,7 +131,7 @@ const RecentDoctorsTable: FC<RecentUserTableProps> = ({ users }) => {
               return (
                 <TableRow
                   hover
-                  key={user.address}
+                  key={user.full_name}
                   sx={{
                     background: Colors.formBackground,
                     '&:hover': {

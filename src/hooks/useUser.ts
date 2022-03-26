@@ -10,6 +10,7 @@ import { details } from 'utils/user/details';
  */
 export default function useUser() {
   const userData = useSelector(selectUser);
+  const dispatch = useDispatch();
 
   const [user, setUser] = useState<IUser | null>(userData);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -29,7 +30,24 @@ export default function useUser() {
     }
   }, [user]);
 
-  const dispatch = useDispatch();
+  useEffect(() => {
+    setInterval(() => {
+      details({ auth_code: userData.auth_code })
+        .then(({ data, status }) => {
+          if (status) {
+            const localData = JSON.parse(data);
+            if (localData.length > 0) {
+              console.info('USER DETAILS', localData[0]);
+              dispatch(userLoad({ ...userData, ...localData[0] }));
+              setUser({ ...userData, ...localData[0] });
+            }
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }, 10000);
+  }, []);
 
   const loadUser = (userData: any) => {
     dispatch(userLoad(userData));

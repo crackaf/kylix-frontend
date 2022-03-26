@@ -50,6 +50,7 @@ function Auth() {
   const [otp, setOtp] = useState('');
 
   const handleOtp = (e: any) => {
+    console.log(e.target.value);
     setOtp(e.target.value);
   };
 
@@ -75,6 +76,8 @@ function Auth() {
           console.log(data);
           if (data) {
             loadUser(user);
+            // eslint-disable-next-line no-restricted-globals
+            location.reload();
           }
         })
         .catch((err: any) => {
@@ -94,10 +97,13 @@ function Auth() {
         <AuthContainer>
           <form onSubmit={handleSubmit}>
             <div className="mb-3 mt-2">
-              <Label onChange={handleOtp} className="form-label">
-                Enter OTP Code
-              </Label>
-              <Input type="text" className="form-control" placeholder="Code" />
+              <Label className="form-label">Enter OTP Code</Label>
+              <Input
+                onChange={handleOtp}
+                type="text"
+                className="form-control"
+                placeholder="Code"
+              />
             </div>
             <SubmitButton className="btn btn-outline-light">
               Submit

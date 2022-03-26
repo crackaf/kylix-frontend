@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { login as userLogin } from 'utils/user/login';
 import Navbar from 'components/navbar';
 import Colors from 'theme/colors';
@@ -63,6 +63,7 @@ const Button = styled.button`
  */
 function Login() {
   const { isLoggedIn, isVerified, loadUser } = useUser();
+  const navigate = useNavigate();
 
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
@@ -94,6 +95,12 @@ function Login() {
       .then((data) => {
         console.info('RESPONSE', data);
         loadUser({ auth_code: data.auth_code });
+
+        setTimeout(() => {
+          navigate('/');
+          // eslint-disable-next-line no-restricted-globals
+          location.reload();
+        }, 2000);
       })
       .catch((err) => {
         console.error(err);
