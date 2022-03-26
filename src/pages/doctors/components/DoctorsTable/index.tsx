@@ -53,11 +53,11 @@ const RecentDoctorsTable: FC<RecentUserTableProps> = ({ users }) => {
   const navigate = useNavigate();
 
   const makeAppontment = (user: IUser): void => {
-    navigate('/content/nfts', { state: user });
+    navigate('/appointments', { state: user });
   };
 
   const getSchedule = (user: IUser): void => {
-    navigate('/content/nfts', { state: user });
+    navigate('/appointments', { state: user });
   };
 
   return (

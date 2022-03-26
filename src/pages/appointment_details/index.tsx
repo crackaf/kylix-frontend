@@ -12,8 +12,7 @@ const PageContainer = styled.div`
 
 const AppointmentContainer = styled.div`
   height: fit-content;
-  width: 50%;
-  margin: 0 auto;
+  width: 30%;
   margin-top: 2%;
   background-color: ${colors.formBackground};
   border: 1px solid ${colors.border};
@@ -25,12 +24,32 @@ const AppointmentContainer = styled.div`
   }
 `;
 
+const Label = styled.label`
+  color: #cccccc;
+  font-weight: 600;
+  margin-left: 10px;
+`;
+
 const Title = styled.div`
   width: fit-content;
   font-size: 24px;
   font-weight: 600;
   margin-bottom: 10px;
   color: white;
+`;
+
+const P = styled.div`
+  color: white;
+  margin-left: 10px;
+  margin-bottom: 2px;
+  font-size: 18px;
+`;
+
+const Input = styled.input`
+  width: 80%;
+  background-color: #959595;
+  margin: 0 auto;
+  color: wheat;
 `;
 
 const SubTitle = styled.div`
@@ -60,49 +79,70 @@ function AppointmentDetails() {
       <PageContainer>
         <Navbar />
         {isLoggedIn ? (
-          <>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              margin: '0 auto',
+            }}
+          >
             <AppointmentContainer>
-              <Title>{user?.full_name}</Title>
+              <Title>Appointment Details</Title>
               <HR />
-              <SubTitle>Available Slots</SubTitle>
-              <div className="mb-3 mt-2">
-                {/* <GenderInputGroup>
-                  <GenderGroup className="form-check">
-                    <input
-                      value="Mon 2pm-4pm"
-                      className="form-check-input"
-                      type="radio"
-                      name="flexRadioDefault"
-                      id="flexRadioDefault1"
-                    />
-                    <Label
-                      isGenderLabel
-                      className="form-check-label"
-                      htmlFor="flexRadioDefault1"
-                    >
-                      Mon 2pm-4pm
-                    </Label>
-                  </GenderGroup>
-                  <GenderGroup className="form-check">
-                    <input
-                      value="Wed 2pm-4pm"
-                      className="form-check-input"
-                      type="radio"
-                      name="flexRadioDefault"
-                      id="feamke"
-                    />
-                    <Label
-                      isGenderLabel
-                      className="form-check-label"
-                      htmlFor="female"
-                    >
-                      Wed 2pm-4pm
-                    </Label>
-                  </GenderGroup>
-                </GenderInputGroup> */}
+              <div className="mb-3 mt-2 d-flex">
+                <Label className="form-label">Appointment ID:</Label>
+                <P>ID</P>
+              </div>
+              <div className="mb-3 mt-2 d-flex">
+                <Label className="form-label">Doctor ID:</Label>
+                <P>Name</P>
+              </div>
+              <div className="mb-3 mt-2 d-flex">
+                <Label className="form-label">Patient ID:</Label>
+                <P>Name</P>
+              </div>
+              <div className="mb-3 mt-2 d-flex">
+                <Label className="form-label">Appointment Day:</Label>
+                <P>Name</P>
+              </div>
+              <div className="mb-3 mt-2 d-flex">
+                <Label className="form-label">Start Time:</Label>
+                <P>Name</P>
+              </div>
+              <div className="mb-3 mt-2 d-flex">
+                <Label className="form-label">End Time:</Label>
+                <P>Name</P>
               </div>
             </AppointmentContainer>
-          </>
+            <AppointmentContainer>
+              <Title>Appointment Details</Title>
+              <HR />
+              <div className="mb-3 mt-2 d-flex">
+                <Label className="form-label">Appointment ID:</Label>
+                <P>ID</P>
+              </div>
+              <div className="mb-3 mt-2 d-flex">
+                <Label className="form-label">Doctor Name:</Label>
+                <P>Name</P>
+              </div>
+              <div className="mb-3 mt-2 d-flex">
+                <Label className="form-label">Patient Name:</Label>
+                <P>Name</P>
+              </div>
+              <div className="mb-3 mt-2 d-flex">
+                <Label className="form-label">Appointment Day:</Label>
+                <P>Name</P>
+              </div>
+              <div className="mb-3 mt-2 d-flex">
+                <Label className="form-label">Start Time:</Label>
+                <P>Name</P>
+              </div>
+              <div className="mb-3 mt-2 d-flex">
+                <Label className="form-label">End Time:</Label>
+                <P>Name</P>
+              </div>
+            </AppointmentContainer>
+          </div>
         ) : (
           <></>
         )}
