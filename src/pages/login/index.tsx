@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { login as userLogin } from 'utils/user/login';
 import Navbar from 'components/navbar';
 import Colors from 'theme/colors';
-import { Link } from 'react-router-dom';
+import useUser from 'hooks/useUser';
 
 const LoginContainer = styled.div`
   background-color: ${Colors.background};
@@ -52,14 +54,45 @@ const P = styled.p`
  * @return {JSX.Element}
  */
 function Login() {
+  const { user, loadUser } = useUser();
+
+  const [phone, setPhone] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
+  if (user && user.auth_code && user.auth_code.length > 0) {
+    return <div>You are logged in</div>;
+  }
+
+  const handlePhone = (e: any) => {
+    setPhone(e.target.value);
+  };
+
+  const handlePassword = (e: any) => {
+    setPassword(e.target.value);
+  };
+
+  const handleSubmit = (e: any) => {
+    userLogin({ phone, password })
+      .then((data) => {
+        console.info('RESPONSE', data);
+        loadUser({ auth_code: data.auth_code });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+    e.preventDefault();
+    console.info(phone, password);
+  };
+
   return (
     <LoginContainer>
       <Navbar isLoggedIn />
       <FormContainer>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="mb-3 mt-2">
             <Label className="form-label">Phone Number</Label>
             <Input
+              onChange={handlePhone}
               type="tel"
               className="form-control"
               placeholder="921234567890"
@@ -69,6 +102,7 @@ function Login() {
           <div className="mb-3 mt-2">
             <Label className="form-label">Password</Label>
             <Input
+              onChange={handlePassword}
               type="password"
               className="form-control"
               placeholder="password"
