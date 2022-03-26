@@ -1,27 +1,35 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
+import styled from 'styled-components';
 import { Card } from '@mui/material';
+import Colors from 'theme/colors';
 import RecentDoctorsTable from './components/DoctorsTable';
+import Navbar from 'components/navbar';
 import { IUser } from 'utils/types/db';
+
+const PageContainer = styled.div`
+  background-color: ${Colors.background};
+  height: 100vh;
+  width: 100%;
+`;
+
+const SubmitButton = styled.button`
+  margin: 0 auto;
+  display: block;
+`;
+
+const Input = styled.input`
+  width: 80%;
+  background-color: #959595;
+  margin: 0 auto;
+  color: wheat;
+`;
 
 /**
  * @dev Doctors component
  * @return {JSX.Element}
  */
 function Doctors() {
-  /**
-  export interface IUser {
-  user_id: number;
-  user_type: number;
-  full_name: string;
-  phone: string;
-  password: string;
-  address: string;
-  gender: string;
-  dob: string;
-  auth_code: string;
-  ver_status: 'unverified' | 'verified';
-}
-     */
   const users: IUser[] = [
     {
       user_id: 1,
@@ -61,9 +69,31 @@ function Doctors() {
     },
   ];
   return (
-    <Card>
-      <RecentDoctorsTable users={users} />
-    </Card>
+    <>
+      <Helmet>
+        <title>Doctors</title>
+      </Helmet>
+      <PageContainer>
+        <Navbar />
+        <div className="d-flex w-50 mx-auto mt-5 mb-5">
+          <Input
+            type="text"
+            className="form-control me-4"
+            placeholder="Speciality"
+          />
+          <Input
+            type="text"
+            className="form-control me-4"
+            placeholder="Rating"
+          />
+          <SubmitButton className="btn btn-outline-light">Submit</SubmitButton>
+        </div>
+
+        <Card>
+          <RecentDoctorsTable users={users} />
+        </Card>
+      </PageContainer>
+    </>
   );
 }
 

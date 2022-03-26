@@ -1,3 +1,4 @@
+/* eslint-disable quote-props */
 import { FC, ChangeEvent, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -18,6 +19,7 @@ import {
 } from '@mui/material';
 
 import BookOnlineIcon from '@mui/icons-material/BookOnline';
+import ScheduleIcon from '@mui/icons-material/Schedule';
 import { useNavigate } from 'react-router-dom';
 import { IUser } from 'utils/types/db';
 import Colors from 'theme/colors';
@@ -54,30 +56,94 @@ const RecentDoctorsTable: FC<RecentUserTableProps> = ({ users }) => {
     navigate('/content/nfts', { state: user });
   };
 
+  const getSchedule = (user: IUser): void => {
+    navigate('/content/nfts', { state: user });
+  };
+
   return (
     <Card>
-      <CardHeader title="Collections" />
+      <CardHeader
+        title="Doctors"
+        sx={{
+          background: Colors.tableTitleBackground,
+          color: 'white',
+          fontWeight: '500',
+        }}
+      />
       <Divider />
       <TableContainer>
         <Table>
           <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell align="right">Phone</TableCell>
-              <TableCell align="right">Gender</TableCell>
-              <TableCell align="right">Date of Birth</TableCell>
-              <TableCell align="right">Actions</TableCell>
+            <TableRow
+              sx={{
+                background: Colors.tableHead,
+                color: 'white',
+              }}
+            >
+              <TableCell
+                sx={{
+                  color: 'white',
+                  fontWeight: '500',
+                }}
+              >
+                Name
+              </TableCell>
+              <TableCell
+                align="right"
+                sx={{
+                  color: 'white',
+                  fontWeight: '500',
+                }}
+              >
+                Phone
+              </TableCell>
+              <TableCell
+                align="right"
+                sx={{
+                  color: 'white',
+                  fontWeight: '500',
+                }}
+              >
+                Gender
+              </TableCell>
+              <TableCell
+                align="right"
+                sx={{
+                  color: 'white',
+                  fontWeight: '500',
+                }}
+              >
+                Date of Birth
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{
+                  color: 'white',
+                  fontWeight: '500',
+                }}
+              >
+                Actions
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {paginatedUsers.map((user) => {
               return (
-                <TableRow hover key={user.address}>
+                <TableRow
+                  hover
+                  key={user.address}
+                  sx={{
+                    background: Colors.formBackground,
+                    '&:hover': {
+                      background: `${Colors.background} !important`,
+                    },
+                  }}
+                >
                   <TableCell>
                     <Typography
                       variant="body1"
                       fontWeight="bold"
-                      color="text.primary"
+                      color="white"
                       gutterBottom
                       noWrap
                     >
@@ -88,7 +154,7 @@ const RecentDoctorsTable: FC<RecentUserTableProps> = ({ users }) => {
                     <Typography
                       variant="body1"
                       fontWeight="bold"
-                      color="text.primary"
+                      color="white"
                       gutterBottom
                       noWrap
                     >
@@ -99,7 +165,7 @@ const RecentDoctorsTable: FC<RecentUserTableProps> = ({ users }) => {
                     <Typography
                       variant="body1"
                       fontWeight="bold"
-                      color="text.primary"
+                      color="white"
                       gutterBottom
                       noWrap
                     >
@@ -110,30 +176,46 @@ const RecentDoctorsTable: FC<RecentUserTableProps> = ({ users }) => {
                     <Typography
                       variant="body1"
                       fontWeight="bold"
-                      color="text.primary"
+                      color="white"
                       gutterBottom
                       noWrap
                     >
                       {user.dob}
                     </Typography>
                   </TableCell>
-                  <TableCell align="right">
+                  <TableCell align="center">
                     <Tooltip title="Make Appointment" arrow>
                       <IconButton
                         sx={{
-                          // eslint-disable-next-line quote-props
-                          color: Colors.background,
+                          color: 'white',
                           '&:hover': {
-                            background: Colors.formBackground,
+                            background: '#cccccc',
                           },
                         }}
                         color="inherit"
-                        size="small"
+                        size="medium"
                         onClick={() => {
                           makeAppontment(user);
                         }}
                       >
-                        <BookOnlineIcon fontSize="small" />
+                        <BookOnlineIcon fontSize="medium" />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Check Schedule" arrow>
+                      <IconButton
+                        sx={{
+                          color: 'white',
+                          '&:hover': {
+                            background: '#cccccc',
+                          },
+                        }}
+                        color="inherit"
+                        size="medium"
+                        onClick={() => {
+                          getSchedule(user);
+                        }}
+                      >
+                        <ScheduleIcon fontSize="medium" />
                       </IconButton>
                     </Tooltip>
                   </TableCell>
@@ -143,15 +225,27 @@ const RecentDoctorsTable: FC<RecentUserTableProps> = ({ users }) => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Box p={2}>
+      <Box
+        p={2}
+        sx={{
+          background: '#616366',
+          color: 'white',
+          fontWeight: '500',
+        }}
+      >
         <TablePagination
           component="div"
+          color="white"
           count={users.length}
           onPageChange={handlePageChange}
           onRowsPerPageChange={handleLimitChange}
           page={page}
           rowsPerPage={limit}
           rowsPerPageOptions={[5, 10, 25, 30]}
+          sx={{
+            color: 'white',
+            fontWeight: '500',
+          }}
         />
       </Box>
     </Card>

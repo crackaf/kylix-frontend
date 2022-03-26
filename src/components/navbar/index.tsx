@@ -68,7 +68,7 @@ function Navbar({ isLoggedIn }: { isLoggedIn?: boolean }) {
             </li>
           </ul>
           <ButtonDiv>
-            <Link to={'/search'}>
+            <Link to={'/doctors'}>
               <Button type="button" className="btn btn-outline-light">
                 Search
               </Button>
