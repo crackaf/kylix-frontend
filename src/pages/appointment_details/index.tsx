@@ -3,16 +3,31 @@ import styled from 'styled-components';
 import Navbar from 'components/navbar';
 import useUser from 'hooks/useUser';
 import colors from 'theme/colors';
+import { TextField } from '@mui/material';
 
 const PageContainer = styled.div`
   background-color: ${colors.background};
-  height: 100vh;
+  height: 125vh;
   width: 100%;
+  @media screen and (max-width: 760px) {
+    height: 100%;
+  }
 `;
 
-const AppointmentContainer = styled.div`
+const OuterContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  @media screen and (max-width: 760px) {
+    margin-top: 0;
+    flex-direction: column;
+  }
+`;
+
+const AppointmentContainer = styled.div<{ width?: string }>`
   height: fit-content;
-  width: 30%;
+  width: ${({ width }) => width ?? '30%'};
+  margin: 0 auto;
   margin-top: 2%;
   background-color: ${colors.formBackground};
   border: 1px solid ${colors.border};
@@ -79,70 +94,80 @@ function AppointmentDetails() {
       <PageContainer>
         <Navbar />
         {isLoggedIn ? (
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              margin: '0 auto',
-            }}
-          >
-            <AppointmentContainer>
-              <Title>Appointment Details</Title>
-              <HR />
-              <div className="mb-3 mt-2 d-flex">
-                <Label className="form-label">Appointment ID:</Label>
-                <P>ID</P>
-              </div>
-              <div className="mb-3 mt-2 d-flex">
-                <Label className="form-label">Doctor ID:</Label>
-                <P>Name</P>
-              </div>
-              <div className="mb-3 mt-2 d-flex">
-                <Label className="form-label">Patient ID:</Label>
-                <P>Name</P>
-              </div>
-              <div className="mb-3 mt-2 d-flex">
-                <Label className="form-label">Appointment Day:</Label>
-                <P>Name</P>
-              </div>
-              <div className="mb-3 mt-2 d-flex">
-                <Label className="form-label">Start Time:</Label>
-                <P>Name</P>
-              </div>
-              <div className="mb-3 mt-2 d-flex">
-                <Label className="form-label">End Time:</Label>
-                <P>Name</P>
-              </div>
-            </AppointmentContainer>
-            <AppointmentContainer>
-              <Title>Appointment Details</Title>
-              <HR />
-              <div className="mb-3 mt-2 d-flex">
-                <Label className="form-label">Appointment ID:</Label>
-                <P>ID</P>
-              </div>
-              <div className="mb-3 mt-2 d-flex">
-                <Label className="form-label">Doctor Name:</Label>
-                <P>Name</P>
-              </div>
-              <div className="mb-3 mt-2 d-flex">
-                <Label className="form-label">Patient Name:</Label>
-                <P>Name</P>
-              </div>
-              <div className="mb-3 mt-2 d-flex">
-                <Label className="form-label">Appointment Day:</Label>
-                <P>Name</P>
-              </div>
-              <div className="mb-3 mt-2 d-flex">
-                <Label className="form-label">Start Time:</Label>
-                <P>Name</P>
-              </div>
-              <div className="mb-3 mt-2 d-flex">
-                <Label className="form-label">End Time:</Label>
-                <P>Name</P>
-              </div>
-            </AppointmentContainer>
-          </div>
+          <>
+            <OuterContainer>
+              <AppointmentContainer>
+                <Title>Appointment Details</Title>
+                <HR />
+                <div className="mb-3 mt-2 d-flex">
+                  <Label className="form-label">Appointment ID:</Label>
+                  <P>ID</P>
+                </div>
+                <div className="mb-3 mt-2 d-flex">
+                  <Label className="form-label">Doctor ID:</Label>
+                  <P>Name</P>
+                </div>
+                <div className="mb-3 mt-2 d-flex">
+                  <Label className="form-label">Patient ID:</Label>
+                  <P>Name</P>
+                </div>
+                <div className="mb-3 mt-2 d-flex">
+                  <Label className="form-label">Appointment Day:</Label>
+                  <P>Name</P>
+                </div>
+                <div className="mb-3 mt-2 d-flex">
+                  <Label className="form-label">Start Time:</Label>
+                  <P>Name</P>
+                </div>
+                <div className="mb-3 mt-2 d-flex">
+                  <Label className="form-label">End Time:</Label>
+                  <P>Name</P>
+                </div>
+              </AppointmentContainer>
+              <AppointmentContainer>
+                <Title>Patient Feedback</Title>
+                <HR />
+                <div className="mb-3 mt-2 d-flex">
+                  <Label className="form-label">Appointment ID:</Label>
+                  <P>ID</P>
+                </div>
+                <div className="mb-3 mt-2 d-flex">
+                  <Label className="form-label">Doctor Name:</Label>
+                  <P>Name</P>
+                </div>
+                <div className="mb-3 mt-2 d-flex">
+                  <Label className="form-label">Patient Name:</Label>
+                  <P>Name</P>
+                </div>
+                <div className="mb-3 mt-2 d-flex">
+                  <Label className="form-label">Appointment Day:</Label>
+                  <P>Name</P>
+                </div>
+                <div className="mb-3 mt-2 d-flex">
+                  <Label className="form-label">Start Time:</Label>
+                  <P>Name</P>
+                </div>
+                <div className="mb-3 mt-2 d-flex">
+                  <Label className="form-label">End Time:</Label>
+                  <P>Name</P>
+                </div>
+              </AppointmentContainer>
+            </OuterContainer>
+
+            <div>
+              <AppointmentContainer width="50%">
+                <Title>Doctor Notes</Title>
+                <HR />
+                <div className="mb-3 mt-2 d-flex">
+                  <Label className="form-label">Appointment ID:</Label>
+                  <P>ID</P>
+                </div>
+                <div className="form-group" style={{ display: 'block' }}>
+                  <textarea className="form-control" rows={5}></textarea>
+                </div>
+              </AppointmentContainer>
+            </div>
+          </>
         ) : (
           <></>
         )}
