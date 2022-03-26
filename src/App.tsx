@@ -7,6 +7,8 @@ import Login from 'pages/login';
 import Auth from 'pages/auth';
 import Doctors from 'pages/doctors';
 import Profile from 'pages/profile';
+import Appointments from 'pages/appointments';
+import AppointmentDetails from 'pages/appointment_details';
 
 /**
  *
@@ -26,6 +28,8 @@ function App() {
           <Route path="/auth" element={<Auth />} />
           <Route path="/doctors" element={<Doctors />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/appointments" element={<Appointments />} />
+          <Route path="/appointment_details" element={<AppointmentDetails />} />
         </Routes>
       </BrowserRouter>
     </div>
