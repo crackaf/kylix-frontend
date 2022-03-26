@@ -57,7 +57,7 @@ const Input = styled.input`
  */
 function Profile() {
   const { user, isLoggedIn, isVerified } = useUser();
-
+  console.log(user);
   return (
     <PageContainer>
       <Navbar />
@@ -80,7 +80,7 @@ function Profile() {
                 type="text"
                 className="form-control"
                 disabled
-                value={user?.user_type === 1 ? 'Paitient' : 'Doctor'}
+                value={user?.user_type === '1' ? 'Paitient' : 'Doctor'}
               />
             </div>
 
@@ -134,14 +134,39 @@ function Profile() {
               />
             </div>
 
-            <div className="mb-3 mt-2">
-              <Label className="form-label">Appointments</Label>
-              <StyledEngineProvider injectFirst>
-                <ListContainer>
-                  <AppointmentList itemData={[]} />
-                </ListContainer>
-              </StyledEngineProvider>
-            </div>
+            {user?.user_type === '1' ? (
+              <>
+                <div className="mb-3 mt-2">
+                  <Label className="form-label">Total Appointments</Label>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    disabled
+                    value="Arbab"
+                  />
+                </div>
+                <div className="mb-3 mt-2">
+                  <Label className="form-label">Appointments</Label>
+                  <StyledEngineProvider injectFirst>
+                    <ListContainer>
+                      <AppointmentList itemData={[]} />
+                    </ListContainer>
+                  </StyledEngineProvider>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="mb-3 mt-2">
+                  <Label className="form-label">Set Appointment</Label>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    disabled
+                    value="Arbab"
+                  />
+                </div>
+              </>
+            )}
           </ProfileContainer>
         </>
       ) : (
