@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import { StyledEngineProvider } from '@mui/material/styles';
 import Colors from 'theme/colors';
 import Navbar from 'components/navbar';
+import AppointmentList from './components/AppointmentList';
 
 const PageContainer = styled.div`
   background-color: ${Colors.background};
-  height: 110vh;
+  height: 170vh;
   width: 100%;
 `;
 
@@ -18,12 +20,27 @@ const ProfileContainer = styled.div`
   border: 1px solid ${Colors.border};
   padding: 20px;
   border-radius: 10px;
+  @media screen and (max-width: 760px) {
+    min-width: 350px;
+    padding: 10px;
+  }
 `;
 
 const Label = styled.label`
   color: #cccccc;
   font-weight: 600;
   margin-left: 60px;
+  @media screen and (max-width: 760px) {
+    margin-left: 26px;
+  }
+`;
+
+const ListContainer = styled.div`
+  margin-left: 60px;
+  width: fit-content;
+  @media screen and (max-width: 760px) {
+    margin-left: 25px;
+  }
 `;
 
 const Input = styled.input`
@@ -73,15 +90,25 @@ function Profile() {
           <Input type="text" className="form-control" disabled value="Arbab" />
         </div>
         {type == 1 && (
-          <div className="mb-3 mt-2">
-            <Label className="form-label">Total Appointments</Label>
-            <Input
-              type="text"
-              className="form-control"
-              disabled
-              value="Arbab"
-            />
-          </div>
+          <>
+            <div className="mb-3 mt-2">
+              <Label className="form-label">Total Appointments</Label>
+              <Input
+                type="text"
+                className="form-control"
+                disabled
+                value="Arbab"
+              />
+            </div>
+            <div className="mb-3 mt-2">
+              <Label className="form-label">Appointments</Label>
+              <StyledEngineProvider injectFirst>
+                <ListContainer>
+                  <AppointmentList itemData={[]} />
+                </ListContainer>
+              </StyledEngineProvider>
+            </div>
+          </>
         )}
       </ProfileContainer>
     </PageContainer>
