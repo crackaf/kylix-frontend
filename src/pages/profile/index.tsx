@@ -142,7 +142,7 @@ function Profile() {
                     type="text"
                     className="form-control"
                     disabled
-                    value="Arbab"
+                    value="0"
                   />
                 </div>
                 <div className="mb-3 mt-2">
@@ -155,17 +155,8 @@ function Profile() {
                 </div>
               </>
             ) : (
-              <>
-                <div className="mb-3 mt-2">
-                  <Label className="form-label">Set Appointment</Label>
-                  <Input
-                    type="text"
-                    className="form-control"
-                    disabled
-                    value="Arbab"
-                  />
-                </div>
-              </>
+              // doctor
+              <>Doctro</>
             )}
           </ProfileContainer>
         </>

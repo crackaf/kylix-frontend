@@ -20,6 +20,7 @@ import {
 
 import BookOnlineIcon from '@mui/icons-material/BookOnline';
 import ScheduleIcon from '@mui/icons-material/Schedule';
+import UserIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';
 import { IUser } from 'utils/types/db';
 import Colors from 'theme/colors';
@@ -58,6 +59,10 @@ const RecentDoctorsTable: FC<RecentUserTableProps> = ({ users }) => {
 
   const getSchedule = (user: IUser): void => {
     navigate('/appointments', { state: user });
+  };
+
+  const viewDoc = (user: IUser): void => {
+    navigate('/doctor_profile', { state: user });
   };
 
   return (
@@ -216,6 +221,23 @@ const RecentDoctorsTable: FC<RecentUserTableProps> = ({ users }) => {
                         }}
                       >
                         <ScheduleIcon fontSize="medium" />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="View Doctor" arrow>
+                      <IconButton
+                        sx={{
+                          color: 'white',
+                          '&:hover': {
+                            background: '#cccccc',
+                          },
+                        }}
+                        color="inherit"
+                        size="medium"
+                        onClick={() => {
+                          viewDoc(user);
+                        }}
+                      >
+                        <UserIcon fontSize="medium" />
                       </IconButton>
                     </Tooltip>
                   </TableCell>

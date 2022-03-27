@@ -9,6 +9,7 @@ import Doctors from 'pages/doctors';
 import Profile from 'pages/profile';
 import Appointments from 'pages/appointments';
 import AppointmentDetails from 'pages/appointment_details';
+import DoctorProfile from 'pages/doctor_profile';
 
 /**
  *
@@ -27,6 +28,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/doctors" element={<Doctors />} />
+          <Route path="/doctor_Profile" element={<DoctorProfile />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/appointments" element={<Appointments />} />
           <Route path="/appointment_details" element={<AppointmentDetails />} />

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router';
 import styled from 'styled-components';
 import DatePicker from '@mui/lab/DatePicker';
 import { TextField } from '@mui/material';
@@ -7,6 +8,8 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import useUser from 'hooks/useUser';
 import Colors from 'theme/colors';
 import Navbar from 'components/navbar';
+import useSchedule from 'hooks/useSchedule';
+import { IUser } from 'utils/types/db';
 
 const PageContainer = styled.div`
   background-color: ${Colors.background};
@@ -81,11 +84,66 @@ const HR = styled.hr`
  * @return {JSX.Element}
  */
 function Appointments() {
+  const location = useLocation();
+
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const { user, isLoggedIn, isVerified } = useUser();
-  const handleDob = (e: any) => {
+
+  const handleDate = (e: any) => {
     setSelectedDate(e);
   };
+
+  const [errorcheck, setErrorCheck] = useState('');
+
+  // get doctor_id from state
+  const doctor = (location.state as IUser) || ({} as IUser);
+
+  // call the useSchedule
+  const schedule = useSchedule({
+    doctor_id: doctor.user_id,
+    auth_code: user?.auth_code || '',
+  });
+  console.log(schedule);
+
+  const weekDays = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
+
+  useEffect(() => {
+    for (const key in schedule) {
+      if (Object.prototype.hasOwnProperty.call(schedule, key)) {
+        const element = schedule[key];
+        for (const iterator of element) {
+          if (selectedDate) {
+            // compare it with date
+            if (key !== weekDays[selectedDate.getDay()]) {
+              setErrorCheck('No appointment available on this day');
+            }
+            const shour = parseInt(iterator.start.split(':')[0]);
+            const sminute = parseInt(iterator.start.split(':')[1]);
+            const ehour = parseInt(iterator.end.split(':')[0]);
+            const eminute = parseInt(iterator.end.split(':')[1]);
+            if (
+              selectedDate.getHours() >= shour &&
+              selectedDate.getMinutes() >= sminute &&
+              selectedDate.getHours() <= ehour &&
+              selectedDate.getMinutes() <= eminute
+            ) {
+              setErrorCheck('Appointment is available');
+            } else {
+              setErrorCheck('Appointment is not available');
+            }
+          }
+        }
+      }
+    }
+  }, [schedule, selectedDate, weekDays]);
 
   return (
     <PageContainer>
@@ -98,38 +156,34 @@ function Appointments() {
             <SubTitle>Available Slots</SubTitle>
             <div className="mb-3 mt-2">
               <GenderInputGroup>
-                <GenderGroup className="form-check">
-                  <input
-                    value="Mon 2pm-4pm"
-                    className="form-check-input"
-                    type="radio"
-                    name="flexRadioDefault"
-                    id="flexRadioDefault1"
-                  />
-                  <Label
-                    isGenderLabel
-                    className="form-check-label"
-                    htmlFor="flexRadioDefault1"
-                  >
-                    Mon 2pm-4pm
-                  </Label>
-                </GenderGroup>
-                <GenderGroup className="form-check">
-                  <input
-                    value="Wed 2pm-4pm"
-                    className="form-check-input"
-                    type="radio"
-                    name="flexRadioDefault"
-                    id="feamke"
-                  />
-                  <Label
-                    isGenderLabel
-                    className="form-check-label"
-                    htmlFor="female"
-                  >
-                    Wed 2pm-4pm
-                  </Label>
-                </GenderGroup>
+                {Object.keys(schedule).map((key) => {
+                  return (
+                    <div>
+                      {schedule[key as any].map((slot) => {
+                        return (
+                          <GenderGroup className="form-check" key={key}>
+                            <input
+                              value={JSON.stringify(key + '-' + slot)}
+                              className="form-check-input"
+                              type="radio"
+                              name="flexRadioDefault"
+                              id="feamke"
+                            />
+                            <div key={JSON.stringify(slot)}>
+                              <Label
+                                isGenderLabel
+                                className="form-check-label"
+                                htmlFor="female"
+                              >
+                                {key} - {slot.start} to {slot.end}
+                              </Label>
+                            </div>
+                          </GenderGroup>
+                        );
+                      })}
+                    </div>
+                  );
+                })}
               </GenderInputGroup>
             </div>
 
@@ -146,7 +200,7 @@ function Appointments() {
                   openTo="year"
                   views={['year', 'month', 'day']}
                   value={selectedDate}
-                  onChange={handleDob}
+                  onChange={handleDate}
                   renderInput={(params) => (
                     <TextField
                       sx={{
@@ -159,6 +213,7 @@ function Appointments() {
                   )}
                 />
               </LocalizationProvider>
+              {errorcheck}
             </div>
           </AppointmentContainer>
         </>
