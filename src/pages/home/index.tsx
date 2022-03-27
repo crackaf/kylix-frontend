@@ -3,6 +3,7 @@ import Navbar from 'components/navbar';
 import Header from 'components/header';
 import styled from 'styled-components';
 import colors from 'theme/colors';
+import { SERVER_API_URL } from 'config/constants';
 
 const PageContainer = styled.div`
   background-color: ${colors.background};
@@ -76,6 +77,7 @@ const InnerDiv = styled.div`
  * @return {JSX.Element}
  */
 function Home() {
+  console.log(SERVER_API_URL);
   return (
     <>
       <PageContainer>

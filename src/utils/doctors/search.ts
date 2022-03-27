@@ -17,7 +17,7 @@ export const search = async (data: ISearchProps) => {
   if (speciality && speciality.length > 0) localData['speciality'] = speciality;
   if (rating && rating.length > 0) localData['rating'] = rating;
   if (limit && limit.length > 0) localData['limit'] = limit;
-  console.log(localData);
+  // console.log(localData);
   const response = await axios.post(SEARCH_DOCTOR, qs.stringify(localData));
   const { data: docs, status, response: r } = response.data as IResponse;
   return { status, r, docs: JSON.parse(docs) };

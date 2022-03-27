@@ -84,6 +84,12 @@ function Navbar() {
               </>
             ) : (
               <>
+                <Link to={'/doctors'}>
+                  <Button type="button" className="btn btn-outline-light">
+                    Doctors
+                  </Button>
+                </Link>
+
                 <Link to={'/'}>
                   <Button
                     onClick={async () => {
