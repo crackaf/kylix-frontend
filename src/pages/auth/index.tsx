@@ -67,6 +67,8 @@ function Auth() {
       createOtp({ auth_code: user.auth_code })
         .then((data) => {
           console.log(data);
+          if (data.status == 200) alert('OTP has been sent to your phone');
+          else alert('Error has occured');
         })
         .catch((err: any) => {
           console.error(err);
@@ -85,6 +87,8 @@ function Auth() {
             loadUser(user);
             // eslint-disable-next-line no-restricted-globals
             location.reload();
+            if (data.status == 200) alert('OTP has been verified');
+            else alert('Error has occured');
           }
         })
         .catch((err: any) => {
