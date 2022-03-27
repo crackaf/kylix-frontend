@@ -63,7 +63,7 @@ function Navbar() {
               </Link>
             )}
 
-            {!isVerified && (
+            {!isVerified && isLoggedIn && (
               <>
                 <Link to={'/auth'}>
                   <Button type="button" className="btn btn-outline-light">
