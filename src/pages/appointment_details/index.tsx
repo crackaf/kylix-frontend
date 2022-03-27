@@ -26,7 +26,7 @@ const OuterContainer = styled.div`
 
 const AppointmentContainer = styled.div<{ width?: string }>`
   height: fit-content;
-  width: ${({ width }) => width ?? '30%'};
+  width: ${({ width }) => width ?? '34%'};
   margin: 0 auto;
   margin-top: 2%;
   background-color: ${colors.formBackground};
@@ -89,6 +89,7 @@ const HR = styled.hr`
  */
 function AppointmentDetails() {
   const { user, isLoggedIn, isVerified } = useUser();
+  console.log(user);
   return (
     <>
       <PageContainer>
@@ -108,8 +109,8 @@ function AppointmentDetails() {
                   <P>Name</P>
                 </div>
                 <div className="mb-3 mt-2 d-flex">
-                  <Label className="form-label">Patient ID:</Label>
-                  <P>Name</P>
+                  <Label className="form-label">Patient Name:</Label>
+                  <P>{user ? user.full_name : -1}</P>
                 </div>
                 <div className="mb-3 mt-2 d-flex">
                   <Label className="form-label">Appointment Day:</Label>
@@ -137,7 +138,7 @@ function AppointmentDetails() {
                 </div>
                 <div className="mb-3 mt-2 d-flex">
                   <Label className="form-label">Patient Name:</Label>
-                  <P>Name</P>
+                  <P>{user?.full_name}</P>
                 </div>
                 <div className="mb-3 mt-2 d-flex">
                   <Label className="form-label">Appointment Day:</Label>

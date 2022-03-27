@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useLocation } from 'react-router';
 import DatePicker from '@mui/lab/DatePicker';
 import { TextField } from '@mui/material';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -7,11 +8,20 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import useUser from 'hooks/useUser';
 import Colors from 'theme/colors';
 import Navbar from 'components/navbar';
+import { IUser } from 'utils/types/db';
+import { getPatientAppointments } from 'utils/appointment_details/search';
 
 const PageContainer = styled.div`
   background-color: ${Colors.background};
   height: 100vh;
   width: 100%;
+`;
+
+const ErrorMessage = styled.div`
+  color: red;
+  margin: auto;
+  margin-top: 10px;
+  font-size: 20px;
 `;
 
 const AppointmentContainer = styled.div`
@@ -76,24 +86,31 @@ const HR = styled.hr`
   color: black;
 `;
 
+const SubmitButton = styled.button`
+  margin: 0 auto;
+  display: block;
+`;
+
 /**
  *
  * @return {JSX.Element}
  */
 function Appointments() {
+  const location = useLocation();
+  const doctor: IUser = location.state as any;
+
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const { user, isLoggedIn, isVerified } = useUser();
   const handleDob = (e: any) => {
     setSelectedDate(e);
   };
-
   return (
     <PageContainer>
       <Navbar />
       {isLoggedIn ? (
         <>
           <AppointmentContainer>
-            <Title>{user?.full_name}</Title>
+            <Title>{doctor.full_name}</Title>
             <HR />
             <SubTitle>Available Slots</SubTitle>
             <div className="mb-3 mt-2">
@@ -160,10 +177,14 @@ function Appointments() {
                 />
               </LocalizationProvider>
             </div>
+
+            <SubmitButton className="btn btn-outline-light">
+              Submit
+            </SubmitButton>
           </AppointmentContainer>
         </>
       ) : (
-        <>Please Login First</>
+        <ErrorMessage>Please Login First</ErrorMessage>
       )}
     </PageContainer>
   );

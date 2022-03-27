@@ -12,6 +12,13 @@ const PageContainer = styled.div`
   width: 100%;
 `;
 
+const ErrorMessage = styled.div`
+  color: red;
+  margin: auto;
+  margin-top: 10px;
+  font-size: 20px;
+`;
+
 const ProfileContainer = styled.div`
   height: fit-content;
   width: 40%;
@@ -57,7 +64,6 @@ const Input = styled.input`
  */
 function Profile() {
   const { user, isLoggedIn, isVerified } = useUser();
-  console.log(user);
   return (
     <PageContainer>
       <Navbar />
@@ -142,7 +148,7 @@ function Profile() {
                     type="text"
                     className="form-control"
                     disabled
-                    value="Arbab"
+                    value="0"
                   />
                 </div>
                 <div className="mb-3 mt-2">
@@ -170,7 +176,7 @@ function Profile() {
           </ProfileContainer>
         </>
       ) : (
-        <>Please Login First</>
+        <ErrorMessage>Please Login First</ErrorMessage>
       )}
     </PageContainer>
   );

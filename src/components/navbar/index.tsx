@@ -64,7 +64,7 @@ function Navbar() {
               <>
                 <Link to={'/auth'}>
                   <Button type="button" className="btn btn-outline-light">
-                    Verify Email
+                    Verify Phone
                   </Button>
                 </Link>
               </>

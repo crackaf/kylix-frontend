@@ -170,7 +170,15 @@ function Signup() {
             />
           </div>
 
-          {checkMatch}
+          {password.length > 0 && (
+            <p
+              style={{
+                marginLeft: '60px',
+              }}
+            >
+              {checkMatch}
+            </p>
+          )}
 
           {/* Address Input */}
           <div className="mb-3 mt-2">

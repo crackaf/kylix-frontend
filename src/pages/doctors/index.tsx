@@ -27,6 +27,13 @@ const Input = styled.input`
   color: wheat;
 `;
 
+const ErrorMessage = styled.div`
+  color: red;
+  margin: auto;
+  margin-top: 10px;
+  font-size: 20px;
+`;
+
 /**
  * @dev Doctors component
  * @return {JSX.Element}
@@ -115,8 +122,10 @@ function Doctors() {
       </Helmet>
       <PageContainer>
         <Navbar />
-        {!isLoggedIn && <>Please login first</>}
-        {!isVerified && <>Please verify your account first</>}
+        {!isLoggedIn && <ErrorMessage>Please login first</ErrorMessage>}
+        {!isVerified && (
+          <ErrorMessage>Please verify your account first</ErrorMessage>
+        )}
         {isLoggedIn && isVerified && (
           <>
             <div className="d-flex w-50 mx-auto mt-5 mb-5">

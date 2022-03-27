@@ -12,6 +12,13 @@ const PageContainer = styled.div`
   width: 100%;
 `;
 
+const ErrorMessage = styled.div`
+  color: red;
+  margin: auto;
+  margin-top: 10px;
+  font-size: 20px;
+`;
+
 const AuthContainer = styled.div`
   height: 180px;
   width: 35%;
@@ -91,8 +98,8 @@ function Auth() {
   return (
     <PageContainer>
       <Navbar />
-      {!isLoggedIn && <>Please Login First</>}
-      {isVerified && <>User is already verified</>}
+      {!isLoggedIn && <ErrorMessage>Please Login First</ErrorMessage>}
+      {isVerified && <ErrorMessage>User is already verified</ErrorMessage>}
       {isLoggedIn && !isVerified && (
         <AuthContainer>
           <form onSubmit={handleSubmit}>

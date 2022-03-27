@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { SERVER_API_URL } from '.';
 
 // eslint-disable-next-line max-len
@@ -7,3 +8,4 @@ export const REGISTER_USER = `${SERVER_API_URL}/api/register_user.php`;
 export const CREATE_OTP = `${SERVER_API_URL}/api/create_otp_for_user.php`;
 export const VERIFY_OTP = `${SERVER_API_URL}/api/verify_otp_for_user.php`;
 export const SEARCH_DOCTOR = `${SERVER_API_URL}/api/search_doctor.php`;
+export const SERCH_PATIENT_APPOINTMENTS = `${SERVER_API_URL}/api/get_patient_appointment.php`;
