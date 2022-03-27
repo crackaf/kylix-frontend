@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router';
 import styled from 'styled-components';
 import Colors from 'theme/colors';
@@ -84,12 +84,12 @@ function DoctorProfile() {
   const location = useLocation();
   const { user, isLoggedIn, isVerified } = useUser();
   const doctor = (location.state as IUser) || ({} as IUser);
-  console.log(doctor);
+  // console.log(doctor);
   const schedule = useSchedule({
     doctor_id: doctor.user_id,
     auth_code: user?.auth_code || '',
   });
-  console.log(schedule);
+  // console.log(schedule);
 
   const [clinicData, setClinicData] = React.useState<
     { clinic_name: string; address: string; geo_location: string }[]
@@ -99,35 +99,45 @@ function DoctorProfile() {
     { contact_id: string; contact_data: string }[]
   >([]);
 
-  clinics({
-    doctor_id: doctor.user_id,
-    auth_code: user?.auth_code || '',
-  })
-    .then(
-      ({
-        docs,
-      }: {
-        docs: { clinic_name: string; address: string; geo_location: string }[];
-      }) => {
-        setClinicData(docs);
-      },
-    )
-    .catch((err) => {
-      console.log(err);
-    });
+  useEffect(() => {
+    clinics({
+      doctor_id: doctor.user_id,
+      auth_code: user?.auth_code || '',
+    })
+      .then(
+        ({
+          docs,
+        }: {
+          docs: {
+            clinic_name: string;
+            address: string;
+            geo_location: string;
+          }[];
+        }) => {
+          setClinicData(docs);
+        },
+      )
+      .catch((err) => {
+        console.log(err);
+      });
 
-  contact({
-    doctor_id: doctor.user_id,
-    auth_code: user?.auth_code || '',
-  })
-    .then(
-      ({ docs }: { docs: { contact_id: string; contact_data: string }[] }) => {
-        setContactData(docs);
-      },
-    )
-    .catch((err) => {
-      console.log(err);
-    });
+    contact({
+      doctor_id: doctor.user_id,
+      auth_code: user?.auth_code || '',
+    })
+      .then(
+        ({
+          docs,
+        }: {
+          docs: { contact_id: string; contact_data: string }[];
+        }) => {
+          setContactData(docs);
+        },
+      )
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [doctor]);
 
   return (
     <PageContainer>
