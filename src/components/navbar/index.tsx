@@ -55,11 +55,14 @@ function Navbar() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0"></ul>
           <ButtonDiv>
-            <Link to={'/doctors'}>
-              <Button type="button" className="btn btn-outline-light">
-                Search
-              </Button>
-            </Link>
+            {!isLoggedIn && (
+              <Link to={'/doctors'}>
+                <Button type="button" className="btn btn-outline-light">
+                  Search
+                </Button>
+              </Link>
+            )}
+
             {!isVerified && (
               <>
                 <Link to={'/auth'}>

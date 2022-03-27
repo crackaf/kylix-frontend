@@ -89,20 +89,20 @@ function Doctors() {
         )}
         {isLoggedIn && isVerified && (
           <>
-            <div className="d-flex w-50 mx-auto mt-5 mb-5">
+            <div className="d-md-flex w-50 mx-auto mt-5 mb-5">
               <Input
                 onChange={handleSpeciality}
                 type="text"
-                className="form-control me-4"
+                className="form-control me-4 mb-4"
                 placeholder="Speciality"
               />
               <Input
                 onChange={handleRating}
                 type="text"
-                className="form-control me-4"
+                className="form-control me-4 mb-4"
                 placeholder="Rating"
               />
-              <SubmitButton className="btn btn-outline-light">
+              <SubmitButton className="btn btn-outline-light mb-4">
                 Submit
               </SubmitButton>
             </div>
